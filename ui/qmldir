@@ -1,0 +1,11 @@
+module ui
+singleton Theme 1.0 Theme.qml
+Main 1.0 Main.qml
+ProgressPage 1.0 ProgressPage.qml
+QuizPage 1.0 QuizPage.qml
+Sidebar 1.0 Sidebar.qml
+UploadPage 1.0 UploadPage.qml
+SettingsPage 1.0 SettingsPage.qml
+ExamPlayer 1.0 ExamPlayer.qml
+SummaryPage 1.0 SummaryPage.qml
+singleton Translator 1.0 Translator.qml
