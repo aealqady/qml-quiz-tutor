@@ -204,7 +204,9 @@ Rectangle {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        Qt.openUrlExternally("file://" + modelData.pdf_path);
+                                        if (typeof summaryController !== "undefined") {
+                                            summaryController.openPdf(modelData.pdf_path);
+                                        }
                                     }
                                 }
                             }

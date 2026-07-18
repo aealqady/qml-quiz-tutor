@@ -30,8 +30,6 @@ jobs:
       - name: Build Windows Executable
         run: |
           pyinstaller --noconfirm --onedir --windowed --name "ITS" `
-          --hidden-import "fitz" `
-          --hidden-import "pymupdf" `
           --add-data "ui;ui" `
           --add-data "assets;assets" `
           --add-data "core;core" `

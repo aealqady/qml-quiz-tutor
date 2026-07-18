@@ -1,7 +1,6 @@
-"""Extract text content from PDF files using PyMuPDF."""
+"""Extract text content from PDF files using pypdf."""
 
-import fitz  # PyMuPDF
-
+from pypdf import PdfReader
 
 def extract_text(file_path: str) -> dict:
     """
@@ -13,15 +12,18 @@ def extract_text(file_path: str) -> dict:
             - page_count: number of pages
             - pages: list of per-page text strings
     """
-    doc = fitz.open(file_path)
+    reader = PdfReader(file_path)
     pages = []
-    for page in doc:
-        pages.append(page.get_text())
-    doc.close()
+    for page in reader.pages:
+        text = page.extract_text()
+        if text:
+            pages.append(text)
+        else:
+            pages.append("")
 
     return {
         "text": "\n\n".join(pages),
-        "page_count": len(pages),
+        "page_count": len(reader.pages),
         "pages": pages,
     }
 

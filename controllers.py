@@ -687,3 +687,25 @@ class SummaryController(QObject):
             })
         self._is_generating = False
         self.chatChanged.emit()
+
+    @pyqtSlot(str)
+    def openPdf(self, pdf_path):
+        import sys, subprocess, os
+        
+        # PyInstaller overrides LD_LIBRARY_PATH, which breaks external Linux apps (like xdg-open).
+        # We need to restore the original environment before launching them.
+        env = os.environ.copy()
+        if "LD_LIBRARY_PATH_ORIG" in env:
+            env["LD_LIBRARY_PATH"] = env["LD_LIBRARY_PATH_ORIG"]
+        elif "LD_LIBRARY_PATH" in env:
+            del env["LD_LIBRARY_PATH"]
+            
+        try:
+            if sys.platform == "win32":
+                os.startfile(pdf_path)
+            elif sys.platform == "darwin":
+                subprocess.Popen(["open", pdf_path], env=env)
+            else:
+                subprocess.Popen(["xdg-open", pdf_path], env=env)
+        except Exception as e:
+            print(f"Error opening PDF: {e}")
